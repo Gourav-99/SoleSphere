@@ -34,7 +34,6 @@ const ProductPage = ({ handleCartToggle }) => {
             <div className="  rounded-lg bg-fuchsia-300 mb-4">
               <img
                 className="w-full h-full object-contain"
-                // src="https://cdn.pixabay.com/photo/2020/05/22/17/53/mockup-5206355_960_720.jpg"
                 src={product?.image}
                 alt="Product Image"
               />

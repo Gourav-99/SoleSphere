@@ -1,4 +1,3 @@
-// const auth=()
 import { toast } from "react-hot-toast";
 import axios from "../../utilis/axios/index";
 export const loginUser = (payload) => async (dispatch) => {
@@ -21,7 +20,7 @@ export const loadUser = () => async (dispatch) => {
     if (!token) return;
     const res = await axios.get(`/auth/validate/${token}`);
     axios.defaults.headers.common["Authorization"] = `${token}`;
-    // console.log(res.data, "user");
+
     dispatch({ type: "LOAD_USER", payload: { user: res.data, token: token } });
 
     toast.success("Validated User");
@@ -32,7 +31,6 @@ export const loadUser = () => async (dispatch) => {
 };
 export const signUpUser = (payload) => async (dispatch) => {
   try {
-    console.log(payload.values);
     const res = await axios.post("/auth/signup", payload, {
       headers: {
         "Content-Type": "application/json",

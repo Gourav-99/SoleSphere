@@ -1,8 +1,7 @@
 import axios from "axios";
 import store from "../../redux/store";
-// console.log(process.env.REACT_APP_API_BASE_URI);
 const instance = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: process.env.REACT_APP_API_BASE_URL,
   timeout: 5000,
   headers: {},
 });

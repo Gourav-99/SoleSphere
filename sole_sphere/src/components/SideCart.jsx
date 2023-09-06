@@ -15,8 +15,6 @@ const SideCart = ({ toggleCart, handleCartToggle }) => {
     return result;
   }, {});
 
-  // console.log(OrderedProducts);
-
   const handleCheckout = async (amount) => {
     try {
       const { data: order } = await axios.post("/payments/checkout", {
@@ -25,7 +23,6 @@ const SideCart = ({ toggleCart, handleCartToggle }) => {
       const res = await axios.patch("/payments/productQty", {
         OrderedProducts,
       });
-      console.log(res);
 
       const options = {
         key: process.env.REACT_APP_RAZOR_KEY,

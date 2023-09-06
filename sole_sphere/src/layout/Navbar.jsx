@@ -1,22 +1,12 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { getProducts } from "../redux/actions/product";
-// import { cartItems } from "../redux/actions/cart";
-// import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
 const Navbar = ({ isMobileMenuOpen, toggleHamburger, handleCartToggle }) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const auth = useSelector((state) => state.auth);
   const cartItems = useSelector((state) => state.cart.cartItems);
-  // const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchInput, setSearchInput] = useState();
 
-  // const handleSearch = (e) => {
-  //   e.preventDefault();
-  //   dispatch(getProducts(searchInput));
-  //   navigate(`/search?_search=${searchInput}`);
-  // };
   return (
     <>
       {/* Main navigation container */}
@@ -25,7 +15,7 @@ const Navbar = ({ isMobileMenuOpen, toggleHamburger, handleCartToggle }) => {
         <div className="flex w-full flex-wrap items-center justify-between px-3">
           {/* Hamburger button for mobile view */}
           <button
-            className="block border-0 bg-transparent px-2 text-fuchsia-900 font-bold hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-fuchsia-200 lg:hidden"
+            className="block border-0 bg-transparent px-2 text-fuchsia-900 font-bold hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0  lg:hidden"
             type="button"
             onClick={toggleHamburger}
           >
@@ -46,7 +36,7 @@ const Navbar = ({ isMobileMenuOpen, toggleHamburger, handleCartToggle }) => {
             </span>
           </button>
           <Link
-            className={`mb-4 ml-2 mr-5 mt-3 flex items-center text-fuchsia-900 hover:text-fuchsia-900 focus:text-fuchsia-900 dark:text-fuchsia-200 dark:hover:text-fuchsia-400 dark:focus:text-fuchsia-400 lg:mb-0 lg:mt-0
+            className={`mb-4 ml-2 mr-5 mt-3 flex items-center text-fuchsia-900 hover:text-fuchsia-900 focus:text-fuchsia-900   lg:mb-0 lg:mt-0
             `}
             to="/"
           >
@@ -121,7 +111,7 @@ const Navbar = ({ isMobileMenuOpen, toggleHamburger, handleCartToggle }) => {
                 <li className="mb-4 lg:mb-0 lg:pr-2">
                   {/* Dashboard link */}
                   <Link
-                    className="text-fuchsia-900 font-bold transition duration-200 hover:text-fuchsia-700 hover:ease-in-out focus:text-fuchsia-700 disabled:text-black/30 motion-reduce:transition-none dark:text-fuchsia-200 dark:hover:text-fuchsia-300 dark:focus:text-fuchsia-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-zinc-400"
+                    className="text-fuchsia-900 font-bold transition duration-200 hover:text-fuchsia-700 hover:ease-in-out focus:text-fuchsia-700 disabled:text-black/30 motion-reduce:transition-none    lg:px-2 [&.active]:text-black/90 "
                     to="/manage-products"
                   >
                     Manage Products
@@ -130,7 +120,7 @@ const Navbar = ({ isMobileMenuOpen, toggleHamburger, handleCartToggle }) => {
               </ul>
             )}
             <div className=" mx-auto max-w-7xl py-2 sm:px-6 lg:hidden">
-              <div className="relative   bg-white rounded-2xl  text-center sm:shadow-sm dark:bg-transparent">
+              <div className="relative   bg-white rounded-2xl  text-center sm:shadow-sm ">
                 <form action={`/search?_search=${searchInput}`}>
                   <label
                     className=" relative bg-white min-w-sm max-w-2xl flex  md:flex-row items-center justify-center border py-1 px-1 rounded-2xl gap-2 shadow-2xl focus-within:border-gray-300"
@@ -164,7 +154,7 @@ const Navbar = ({ isMobileMenuOpen, toggleHamburger, handleCartToggle }) => {
           {/* Right elements */}
           <div className="relative flex items-center">
             <div className="hidden lg:block mx-auto max-w-7xl sm:px-6">
-              <div className="relative   bg-white rounded-2xl  text-center sm:shadow-sm dark:bg-transparent">
+              <div className="relative   bg-white rounded-2xl  text-center sm:shadow-sm ">
                 <form action={`/search?_search=${searchInput}`}>
                   <label
                     className=" relative bg-white min-w-sm max-w-2xl flex  md:flex-row items-center justify-center border py-1 px-1 rounded-2xl gap-2 shadow-2xl focus-within:border-gray-300"
@@ -197,7 +187,7 @@ const Navbar = ({ isMobileMenuOpen, toggleHamburger, handleCartToggle }) => {
               // {/* Cart Icon */}
               <>
                 <button
-                  className="mr-4 text-fuchsia-700 transition duration-200 hover:text-fuchsia-800 hover:ease-in-out focus:text-fuchsia-700 disabled:text-black/30 motion-reduce:transition-none dark:text-fuchsia-200 dark:hover:text-fuchsia-300 dark:focus:text-fuchsia-300 [&.active]:text-black/90 dark:[&.active]:text-fuchsia-400"
+                  className="mr-4 text-fuchsia-700 transition duration-200 hover:text-fuchsia-800 hover:ease-in-out focus:text-fuchsia-700 disabled:text-black/30 motion-reduce:transition-none    [&.active]:text-black/90 "
                   onClick={handleCartToggle}
                 >
                   <span className="[&>svg]:w-7 relative">
@@ -217,7 +207,7 @@ const Navbar = ({ isMobileMenuOpen, toggleHamburger, handleCartToggle }) => {
 
                 <div className="relative group">
                   <div
-                    className="arrow border border-black dark:bg-gray-300 rounded-full flex items-center justify-center whitespace-nowrap transition duration-150 ease-in-out motion-reduce:transition-none"
+                    className="arrow border border-black  rounded-full flex items-center justify-center whitespace-nowrap transition duration-150 ease-in-out motion-reduce:transition-none"
                     id="dropdownMenuButton2"
                     role="button"
                   >
@@ -238,12 +228,12 @@ const Navbar = ({ isMobileMenuOpen, toggleHamburger, handleCartToggle }) => {
                   </div>
 
                   <ul
-                    className={`absolute left-auto right-0 z-[1000] float-left m-0 mt-1 hidden group-hover:block  min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-fuchsia-700 [&[data-te-dropdown-show]]:block p-2`}
+                    className={`absolute left-auto right-0 z-[1000] float-left m-0 mt-1 hidden group-hover:block  min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg  [&[data-te-dropdown-show]]:block p-2`}
                   >
                     {/* Second dropdown menu items */}
                     <li>
                       <Link
-                        className="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-fuchsia-700 hover:bg-fuchsia-100 active:text-fuchsia-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-fuchsia-400 dark:text-fuchsia-200 dark:hover:bg-white/30"
+                        className="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-fuchsia-700 hover:bg-fuchsia-100 active:text-fuchsia-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-fuchsia-400  "
                         to="/profile"
                       >
                         Profile
@@ -251,7 +241,7 @@ const Navbar = ({ isMobileMenuOpen, toggleHamburger, handleCartToggle }) => {
                     </li>
                     <li>
                       <Link
-                        className="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-fuchsia-700 hover:bg-fuchsia-100 active:text-fuchsia-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-fuchsia-400 dark:text-fuchsia-200 dark:hover:bg-white/30"
+                        className="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-fuchsia-700 hover:bg-fuchsia-100 active:text-fuchsia-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-fuchsia-400  "
                         to="/order"
                       >
                         Orders
@@ -259,7 +249,7 @@ const Navbar = ({ isMobileMenuOpen, toggleHamburger, handleCartToggle }) => {
                     </li>
                     <li>
                       <Link
-                        className="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-fuchsia-700 hover:bg-fuchsia-100 active:text-fuchsia-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-fuchsia-400 dark:text-fuchsia-200 dark:hover:bg-white/30"
+                        className="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-fuchsia-700 hover:bg-fuchsia-100 active:text-fuchsia-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-fuchsia-400  "
                         to="/logout"
                       >
                         Logout
@@ -272,13 +262,13 @@ const Navbar = ({ isMobileMenuOpen, toggleHamburger, handleCartToggle }) => {
               //  {/* Auth Buttons */}
               <>
                 <Link
-                  className="text-fuchsia-900 font-bold transition duration-200 hover:text-fuchsia-700 hover:ease-in-out focus:text-fuchsia-700 disabled:text-black/30 motion-reduce:transition-none dark:text-fuchsia-200 dark:hover:text-fuchsia-300 dark:focus:text-fuchsia-300 lg:px-2 "
+                  className="text-fuchsia-900 font-bold transition duration-200 hover:text-fuchsia-700 hover:ease-in-out focus:text-fuchsia-700 disabled:text-black/30 motion-reduce:transition-none    lg:px-2 "
                   to="/login"
                 >
                   Login
                 </Link>
                 <Link
-                  className="text-fuchsia-900 font-bold transition duration-200 hover:text-fuchsia-700 hover:ease-in-out focus:text-fuchsia-700 disabled:text-black/30 motion-reduce:transition-none dark:text-fuchsia-200 dark:hover:text-fuchsia-300 dark:focus:text-fuchsia-300 lg:px-2 "
+                  className="text-fuchsia-900 font-bold transition duration-200 hover:text-fuchsia-700 hover:ease-in-out focus:text-fuchsia-700 disabled:text-black/30 motion-reduce:transition-none    lg:px-2 "
                   to="/signup"
                 >
                   SignUp

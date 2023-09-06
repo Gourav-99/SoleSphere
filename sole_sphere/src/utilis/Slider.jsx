@@ -14,7 +14,7 @@ const Slider = ({ settings, slides, products }) => {
       {slides && slides.length > 0
         ? slides.map((slide, index) => (
             <SwiperSlide key={index}>{slide}</SwiperSlide>
-          )) // Missing closing parenthesis here
+          ))
         : products &&
           products.length > 0 &&
           products.map((product, index) => (

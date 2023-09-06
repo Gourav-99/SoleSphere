@@ -1,10 +1,9 @@
 import { Route, Routes } from "react-router";
-import "./App.css";
+
 import Home from "./components/Home";
 import ProductDetails from "./components/ProductPage";
 import Footer from "./layout/Footer";
 import Navbar from "./layout/Navbar";
-import Slider from "./utilis/Slider";
 import Login from "./components/auth/Login";
 import SignUp from "./components/auth/SignUp";
 import ForgotPassword from "./components/auth/ForgotPassword";
@@ -17,9 +16,16 @@ import SideCart from "./components/SideCart";
 import PaymentSuccessfull from "./layout/PaymentSuccessfull";
 import MyOrders from "./components/MyOrders";
 import SearchPage from "./layout/SearchPage";
+import ManageProduct from "./components/admin/ManageProduct";
+import EditProduct from "./components/admin/EditProduct";
+import CreateProduct from "./components/admin/CreateProduct";
+import NotFound from "./layout/NotFound";
 
 function App() {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadUser());
+  }, []);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [toggleCart, setToggleCart] = useState(false);
   const toggleHamburger = () => {
@@ -28,9 +34,7 @@ function App() {
   const handleCartToggle = () => {
     setToggleCart(!toggleCart);
   };
-  useEffect(() => {
-    dispatch(loadUser());
-  }, []);
+
   return (
     <>
       <Toaster />
@@ -78,6 +82,10 @@ function App() {
         />
         <Route path="/order" element={<MyOrders />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/manage-products" element={<ManageProduct />} />
+        <Route path="/edit-product/:id" element={<EditProduct />} />
+        <Route path="/create-product" element={<CreateProduct />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
       <Footer />
     </>

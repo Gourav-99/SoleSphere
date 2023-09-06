@@ -4,7 +4,7 @@ import { toast } from "react-hot-toast";
 export const cartItems = (payload) => async (dispatch) => {
   try {
     const { activeSize, quantity, id } = payload;
-    console.log(payload);
+
     const res = await axios.get(`/product/${id}`);
     const product = res.data;
     dispatch({
