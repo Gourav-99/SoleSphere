@@ -3,16 +3,24 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { loginUser } from "../../redux/actions/auth";
 import withAuth from "../../hoc/withAuth";
+import Spinner from "../../layout/Spinner";
 
 const Login = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
-
-    dispatch(loginUser({ email, password }));
+    setLoading(true);
+    dispatch(loginUser({ email, password }))
+      .then(() => {
+        setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
+      });
   };
   return (
     <>
@@ -43,7 +51,7 @@ const Login = () => {
                         <div className="relative mb-4">
                           <input
                             type="text"
-                            className={`peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none  input-ka-placeholder [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0`}
+                            className={`peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none  input-ka-placeholder [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0`}
                             id="exampleFormControlInput1"
                             placeholder="Username"
                             value={email}
@@ -63,7 +71,7 @@ const Login = () => {
                         <div className="relative mb-4">
                           <input
                             type="password"
-                            className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none  [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                            className="peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none  [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                             id="exampleFormControlInput11"
                             placeholder="Password"
                             value={password}
@@ -86,7 +94,7 @@ const Login = () => {
                             className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] bg-gradient-to-r from-violet-500 to-fuchsia-900"
                             type="submit"
                           >
-                            Log in
+                            {loading ? <Spinner /> : "Log in"}
                           </button>
                           {/*Forgot password link*/}
                           <Link to="/forgot-password">Forgot password?</Link>
@@ -108,14 +116,15 @@ const Login = () => {
                   <div className="flex items-center rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none bg-gradient-to-r from-violet-500 to-fuchsia-900">
                     <div className="px-4 py-6 text-white md:mx-6 md:p-12">
                       <h4 className="mb-6 text-xl font-semibold">
-                        We are more than just a company
+                        Elevate Your Style with Exclusive Sneakers and
+                        Streetwear
                       </h4>
                       <p className="text-sm">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua. Ut enim ad minim veniam, quis
-                        nostrud exercitation ullamco laboris nisi ut aliquip ex
-                        ea commodo consequat.
+                        SoleSphere is a global hub for sneaker enthusiasts.
+                        Explore our curated collection of exclusive sneakers,
+                        connect with like-minded enthusiasts, and stay ahead in
+                        the world of sneaker culture. Discover, connect, and
+                        elevate your passion for sneakers with us.
                       </p>
                     </div>
                   </div>

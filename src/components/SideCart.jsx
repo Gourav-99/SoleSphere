@@ -1,10 +1,14 @@
+import { useState } from "react";
 import axios from "../../src/utilis/axios/index";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import Spinner from "../layout/Spinner";
 
 const SideCart = ({ toggleCart, handleCartToggle }) => {
   const auth = useSelector((state) => state.auth.user);
   const cartItems = useSelector((state) => state.cart.cartItems);
+  const [loading, setLoading] = useState(false);
   const subTotal = cartItems.reduce((total, item) => {
     return total + item.product.price * item.selectedQuantity;
   }, 0);
@@ -17,6 +21,11 @@ const SideCart = ({ toggleCart, handleCartToggle }) => {
 
   const handleCheckout = async (amount) => {
     try {
+      if (!auth) {
+        toast.error("Sigin to place an order !");
+        return;
+      }
+      setLoading(true);
       const { data: order } = await axios.post("/payments/checkout", {
         amount,
       });
@@ -49,6 +58,8 @@ const SideCart = ({ toggleCart, handleCartToggle }) => {
       razor.open();
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -64,125 +75,142 @@ const SideCart = ({ toggleCart, handleCartToggle }) => {
           <div className="here pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
             <div className="pointer-events-auto w-screen max-w-md">
               <div className="z-[9999] this flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
-                <div className=" flex-1 overflow-y-auto px-4 py-6 sm:px-6">
-                  <div className="flex items-start justify-between">
-                    <h2
-                      className="text-lg font-medium text-fuchsia-900"
-                      id="slide-over-title"
-                    >
-                      Shopping cart
-                    </h2>
-                    <div className="ml-3 flex h-7 items-center">
-                      <button
-                        onClick={handleCartToggle}
-                        type="button"
-                        className="relative -m-2 p-2 text-fuchsia-400 hover:text-fuchsia-500"
-                      >
-                        <span className="absolute -inset-0.5" />
-                        <span className="sr-only">Close panel</span>
-                        <svg
-                          className="h-6 w-6"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="currentColor"
-                          aria-hidden="true"
+                {cartItems && cartItems.lenght > 0 ? (
+                  <>
+                    <div className=" flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+                      <div className="flex items-start justify-between">
+                        <h2
+                          className="text-lg font-medium text-fuchsia-900"
+                          id="slide-over-title"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M6 18L18 6M6 6l12 12"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                  <div className="mt-8">
-                    <div className="flow-root">
-                      <ul
-                        role="list"
-                        className="-my-6 divide-y divide-fuchsia-200"
-                      >
-                        {cartItems &&
-                          cartItems.length > 0 &&
-                          cartItems?.map((item, index) => (
-                            <li key={index} className="flex py-6">
-                              <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-fuchsia-200">
-                                <img
-                                  src={item.product.image}
-                                  alt={item.product.title}
-                                  className="h-full w-full object-cover object-center"
-                                />
-                              </div>
-                              <div className="ml-4 flex flex-1 flex-col">
-                                <div>
-                                  <div className="flex justify-between text-base font-medium text-fuchsia-900">
-                                    <h3>
-                                      <Link to={`/product/${item.product._id}`}>
-                                        {item.product.title}
-                                      </Link>
-                                    </h3>
-                                    <p className="ml-4">
-                                      ₹ {item.product.price / 100}
-                                    </p>
+                          Shopping cart
+                        </h2>
+                        <div className="ml-3 flex h-7 items-center">
+                          <button
+                            onClick={handleCartToggle}
+                            type="button"
+                            className="relative -m-2 p-2 text-fuchsia-400 hover:text-fuchsia-500"
+                          >
+                            <span className="absolute -inset-0.5" />
+                            <span className="sr-only">Close panel</span>
+                            <svg
+                              className="h-6 w-6"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="currentColor"
+                              aria-hidden="true"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M6 18L18 6M6 6l12 12"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                      <div className="mt-8">
+                        <div className="flow-root">
+                          <ul
+                            role="list"
+                            className="-my-6 divide-y divide-fuchsia-200"
+                          >
+                            {cartItems &&
+                              cartItems.length > 0 &&
+                              cartItems?.map((item, index) => (
+                                <li key={index} className="flex py-6">
+                                  <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-fuchsia-200">
+                                    <img
+                                      src={item.product.image}
+                                      alt={item.product.title}
+                                      className="h-full w-full object-cover object-center"
+                                    />
                                   </div>
-                                  <p className="mt-1 text-sm text-fuchsia-500">
-                                    {item.activeSize}
-                                  </p>
-                                </div>
-                                <div className="flex flex-1 items-end justify-between text-sm">
-                                  <p className="text-fuchsia-500">
-                                    Qty{" "}
-                                    {item.selectedQuantity >
-                                    item.product.quantity
-                                      ? item.product.quantity
-                                      : item.selectedQuantity}
-                                  </p>
-                                  <div className="flex">
-                                    <button
-                                      type="button"
-                                      className="font-medium text-fuchsia-600 hover:text-fuchsia-500"
-                                    >
-                                      Remove
-                                    </button>
+                                  <div className="ml-4 flex flex-1 flex-col">
+                                    <div>
+                                      <div className="flex justify-between text-base font-medium text-fuchsia-900">
+                                        <h3>
+                                          <Link
+                                            to={`/product/${item.product._id}`}
+                                          >
+                                            {item.product.title}
+                                          </Link>
+                                        </h3>
+                                        <p className="ml-4">
+                                          ₹ {item.product.price / 100}
+                                        </p>
+                                      </div>
+                                      <p className="mt-1 text-sm text-fuchsia-500">
+                                        {item.activeSize}
+                                      </p>
+                                    </div>
+                                    <div className="flex flex-1 items-end justify-between text-sm">
+                                      <p className="text-fuchsia-500">
+                                        Qty{" "}
+                                        {item.selectedQuantity >
+                                        item.product.quantity
+                                          ? item.product.quantity
+                                          : item.selectedQuantity}
+                                      </p>
+                                      <div className="flex">
+                                        <button
+                                          type="button"
+                                          className="font-medium text-fuchsia-600 hover:text-fuchsia-500"
+                                        >
+                                          Remove
+                                        </button>
+                                      </div>
+                                    </div>
                                   </div>
-                                </div>
-                              </div>
-                            </li>
-                          ))}
-                      </ul>
+                                </li>
+                              ))}
+                          </ul>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div className="border-t border-fuchsia-200 px-4 py-6 sm:px-6">
-                  <div className="flex justify-between text-base font-medium text-fuchsia-900">
-                    <p>Subtotal</p>
-                    <p>{subTotal / 100}</p>
-                  </div>
-                  <p className="mt-0.5 text-sm text-fuchsia-500">
-                    Shipping and taxes calculated at checkout.
-                  </p>
-                  <div className="mt-6">
-                    <button
-                      onClick={() => handleCheckout(subTotal)}
-                      className="flex items-center justify-center rounded-md border border-transparent bg-fuchsia-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-fuchsia-700"
+                    <div className="border-t border-fuchsia-200 px-4 py-6 sm:px-6">
+                      <div className="flex justify-between text-base font-medium text-fuchsia-900">
+                        <p>Subtotal</p>
+                        <p>{subTotal / 100}</p>
+                      </div>
+                      <p className="mt-0.5 text-sm text-fuchsia-500">
+                        Shipping and taxes calculated at checkout.
+                      </p>
+                      <div className="mt-6">
+                        <button
+                          onClick={() => handleCheckout(subTotal)}
+                          className="w-full flex items-center justify-center rounded-md border border-transparent bg-fuchsia-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-fuchsia-700"
+                        >
+                          {loading ? <Spinner /> : "Checkout"}
+                        </button>
+                      </div>
+                      <div className="mt-6 flex justify-center text-center text-sm text-fuchsia-500">
+                        <p>
+                          or
+                          <Link
+                            to="/"
+                            className="font-medium text-fuchsia-600 hover:text-fuchsia-500"
+                          >
+                            Continue Shopping
+                            <span aria-hidden="true"> →</span>
+                          </Link>
+                        </p>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <div className="w-full  h-full flex flex-col justify-center items-center">
+                    <p className="py-2 text-xl text-fuchsia-500">Empty Cart</p>
+                    <Link
+                      to="/"
+                      onClick={handleCartToggle}
+                      className="w-80 flex items-center justify-center rounded-md border border-transparent bg-fuchsia-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-fuchsia-700"
                     >
-                      Checkout
-                    </button>
+                      Continue Shopping
+                    </Link>
                   </div>
-                  <div className="mt-6 flex justify-center text-center text-sm text-fuchsia-500">
-                    <p>
-                      or
-                      <Link
-                        to="/"
-                        className="font-medium text-fuchsia-600 hover:text-fuchsia-500"
-                      >
-                        Continue Shopping
-                        <span aria-hidden="true"> →</span>
-                      </Link>
-                    </p>
-                  </div>
-                </div>
+                )}
               </div>
             </div>
           </div>

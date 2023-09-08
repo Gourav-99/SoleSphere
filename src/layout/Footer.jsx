@@ -76,9 +76,10 @@ const Footer = () => {
         {/*Copyright section*/}
         <div className="bg-neutral-300 p-4 text-center text-fuchsia-700  ">
           © 2023 Copyright:
-          <Link className="text-fuchsia-900 " to="/">
+          <Link className="text-fuchsia-900 px-1 " to="/">
             SoleSphere
           </Link>
+          Owner: Gourav Puri Goswami
         </div>
       </footer>
     </>

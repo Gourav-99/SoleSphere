@@ -5,6 +5,7 @@ import ProductCard from "../utilis/ProductCard";
 import Gallery from "./Gallery";
 import { useEffect } from "react";
 import { getProducts } from "../redux/actions/product";
+import BannerImg from "./BannerImg";
 
 const Home = () => {
   const products = useSelector((state) => state.product.products);
@@ -31,47 +32,6 @@ const Home = () => {
       product.tags.includes("new")
     );
   });
-  const bannerImages = [
-    <img
-      className="w-full"
-      src="https://e0.pxfuel.com/wallpapers/166/989/desktop-wallpaper-leather-shoes-shoes-ads-shoes-shoe-poster.jpg"
-      alt=""
-    />,
-    <img
-      className="w-full"
-      src="https://e0.pxfuel.com/wallpapers/166/989/desktop-wallpaper-leather-shoes-shoes-ads-shoes-shoe-poster.jpg"
-      alt=""
-    />,
-    <img
-      className="w-full"
-      src="https://e0.pxfuel.com/wallpapers/166/989/desktop-wallpaper-leather-shoes-shoes-ads-shoes-shoe-poster.jpg"
-      alt=""
-    />,
-    <img
-      className="w-full"
-      src="https://e0.pxfuel.com/wallpapers/166/989/desktop-wallpaper-leather-shoes-shoes-ads-shoes-shoe-poster.jpg"
-      alt=""
-    />,
-    <img
-      className="w-full"
-      src="https://e0.pxfuel.com/wallpapers/166/989/desktop-wallpaper-leather-shoes-shoes-ads-shoes-shoe-poster.jpg"
-      alt=""
-    />,
-  ];
-  const homebannerSettings = {
-    slidesPerView: 1,
-    spaceBetween: 30,
-    centeredSlides: true,
-    autoplay: {
-      delay: 2500,
-      disableOnInteraction: false,
-    },
-    loop: true,
-    pagination: {
-      clickable: true,
-    },
-    navigation: true,
-  };
 
   const trendingProductSettings = {
     loop: true,
@@ -100,7 +60,7 @@ const Home = () => {
   return (
     <>
       <section className="banner mb-10">
-        <Slider slides={bannerImages} settings={homebannerSettings} />
+        <BannerImg />
       </section>
       {trendingProducts.length > 0 && (
         <section className="trending-products flex flex-col mb-10">

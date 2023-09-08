@@ -2,16 +2,22 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router";
 import axios from "../../utilis/axios/index";
+import Spinner from "../../layout/Spinner";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
   const [password, setPassword] = useState();
   const [confirmPass, setConfirmPass] = useState();
   const { token } = useParams();
-
+  const [loading, setLoading] = useState(false);
   const handleResetPassword = async (e) => {
     try {
       e.preventDefault();
+      setLoading(true);
+      if (password !== confirmPass) {
+        toast.error("Password doesn't match");
+        return;
+      }
       const res = await axios.post(`/auth/reset-password/${token}`, {
         password,
       });
@@ -24,6 +30,9 @@ const ResetPassword = () => {
       }
     } catch (error) {
       console.log(error);
+      setLoading(false);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -58,7 +67,7 @@ const ResetPassword = () => {
                           <input
                             value={password}
                             type="password"
-                            className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none  [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                            className="peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none  [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                             id="exampleFormControlInput11"
                             placeholder="Password"
                             onChange={(e) => setPassword(e.target.value)}
@@ -80,7 +89,7 @@ const ResetPassword = () => {
                           <input
                             value={confirmPass}
                             type="password"
-                            className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none  [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                            className="peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none  [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                             id="exampleFormControlInputCo"
                             placeholder="Confirm Password"
                             onChange={(e) => setConfirmPass(e.target.value)}
@@ -101,13 +110,8 @@ const ResetPassword = () => {
                           <button
                             className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] bg-gradient-to-r from-violet-500 to-fuchsia-900"
                             type="submit"
-
-                            // style={{
-                            //   background:
-                            //     "linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593)",
-                            // }}
                           >
-                            Reset Password
+                            {loading ? <Spinner /> : "Reset Password"}
                           </button>
                           {/*Forgot password link*/}
                         </div>
@@ -118,14 +122,15 @@ const ResetPassword = () => {
                   <div className="flex items-center rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none bg-gradient-to-r from-violet-500 to-fuchsia-900">
                     <div className="px-4 py-6 text-white md:mx-6 md:p-12">
                       <h4 className="mb-6 text-xl font-semibold">
-                        We are more than just a company
+                        Elevate Your Style with Exclusive Sneakers and
+                        Streetwear
                       </h4>
                       <p className="text-sm">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua. Ut enim ad minim veniam, quis
-                        nostrud exercitation ullamco laboris nisi ut aliquip ex
-                        ea commodo consequat.
+                        SoleSphere is a global hub for sneaker enthusiasts.
+                        Explore our curated collection of exclusive sneakers,
+                        connect with like-minded enthusiasts, and stay ahead in
+                        the world of sneaker culture. Discover, connect, and
+                        elevate your passion for sneakers with us.
                       </p>
                     </div>
                   </div>

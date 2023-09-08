@@ -1,11 +1,17 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const Navbar = ({ isMobileMenuOpen, toggleHamburger, handleCartToggle }) => {
   const auth = useSelector((state) => state.auth);
   const cartItems = useSelector((state) => state.cart.cartItems);
   const [searchInput, setSearchInput] = useState();
+  const handleLogout = () => {
+    localStorage.clear("access_token");
+    toast.success("logged out successully");
+    window.location.reload();
+  };
 
   return (
     <>
@@ -221,7 +227,7 @@ const Navbar = ({ isMobileMenuOpen, toggleHamburger, handleCartToggle }) => {
                     ) : (
                       <div className="  rounded-full h-10 w-10 flex items-center justify-center">
                         <span className="text-fuchsia-800 uppercase font-bold">
-                          {auth.user.initials}
+                          {auth?.user?.initials}
                         </span>
                       </div>
                     )}
@@ -248,12 +254,12 @@ const Navbar = ({ isMobileMenuOpen, toggleHamburger, handleCartToggle }) => {
                       </Link>
                     </li>
                     <li>
-                      <Link
+                      <button
                         className="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-fuchsia-700 hover:bg-fuchsia-100 active:text-fuchsia-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-fuchsia-400  "
-                        to="/logout"
+                        onClick={handleLogout}
                       >
                         Logout
-                      </Link>
+                      </button>
                     </li>
                   </ul>
                 </div>
@@ -262,13 +268,13 @@ const Navbar = ({ isMobileMenuOpen, toggleHamburger, handleCartToggle }) => {
               //  {/* Auth Buttons */}
               <>
                 <Link
-                  className="text-fuchsia-900 font-bold transition duration-200 hover:text-fuchsia-700 hover:ease-in-out focus:text-fuchsia-700 disabled:text-black/30 motion-reduce:transition-none    lg:px-2 "
+                  className="text-fuchsia-900 font-bold transition duration-200 hover:text-fuchsia-700 hover:ease-in-out focus:text-fuchsia-700 disabled:text-black/30 motion-reduce:transition-none  px-1  lg:px-2 "
                   to="/login"
                 >
                   Login
                 </Link>
                 <Link
-                  className="text-fuchsia-900 font-bold transition duration-200 hover:text-fuchsia-700 hover:ease-in-out focus:text-fuchsia-700 disabled:text-black/30 motion-reduce:transition-none    lg:px-2 "
+                  className="text-fuchsia-900 font-bold transition duration-200 hover:text-fuchsia-700 hover:ease-in-out focus:text-fuchsia-700 disabled:text-black/30 motion-reduce:transition-none   px-1 lg:px-2 "
                   to="/signup"
                 >
                   SignUp

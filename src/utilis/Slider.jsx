@@ -11,17 +11,18 @@ const Slider = ({ settings, slides, products }) => {
       {...settings}
       modules={[Autoplay, Pagination, Navigation]}
     >
-      {slides && slides.length > 0
-        ? slides.map((slide, index) => (
-            <SwiperSlide key={index}>{slide}</SwiperSlide>
-          ))
-        : products &&
-          products.length > 0 &&
-          products.map((product, index) => (
-            <SwiperSlide key={index}>
-              {<ProductCard product={product} />}
-            </SwiperSlide>
-          ))}
+      {slides &&
+        slides.length > 0 &&
+        slides.map((slide, index) => (
+          <SwiperSlide key={index}>{slide}</SwiperSlide>
+        ))}
+      {products &&
+        products.length > 0 &&
+        products.map((product, index) => (
+          <SwiperSlide key={index}>
+            {<ProductCard product={product} />}
+          </SwiperSlide>
+        ))}
     </Swiper>
   );
 };

@@ -3,10 +3,13 @@ import withAuth from "../../hoc/withAuth";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signUpUser } from "../../redux/actions/auth";
+import Spinner from "../../layout/Spinner";
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [fName, setfName] = useState();
@@ -18,7 +21,7 @@ const SignUp = () => {
 
   const handleSignup = (e) => {
     e.preventDefault();
-
+    setLoading(true);
     formData.append("fName", fName);
     formData.append("lName", lName);
     formData.append("email", email);
@@ -26,7 +29,9 @@ const SignUp = () => {
     formData.append("phone", phone);
     formData.append("role", role);
     formData.append("bussiness", bussiness);
-    dispatch(signUpUser(formData));
+    dispatch(signUpUser(formData))
+      .then(() => setLoading(false))
+      .catch((error) => setLoading(false));
     navigate("/login");
   };
 
@@ -59,7 +64,7 @@ const SignUp = () => {
                           <input
                             value={fName}
                             type="text"
-                            className={`peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100  data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none  [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0`}
+                            className={`peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100  data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none  [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0`}
                             id="exampleFormControlInput0"
                             placeholder="Firstname"
                             required
@@ -80,7 +85,7 @@ const SignUp = () => {
                           <input
                             value={lName}
                             type="text"
-                            className={`peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100  data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none  [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0`}
+                            className={`peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100  data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none  [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0`}
                             id="exampleFormControlInput01"
                             placeholder="Lastname"
                             required
@@ -101,7 +106,7 @@ const SignUp = () => {
                           <input
                             value={email}
                             type="email"
-                            className={`peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100  data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none  [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0`}
+                            className={`peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100  data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none  [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0`}
                             id="exampleFormControlInput1"
                             placeholder="Username"
                             required
@@ -122,7 +127,7 @@ const SignUp = () => {
                           <input
                             value={password}
                             type="password"
-                            className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none  [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                            className="peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none  [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                             id="exampleFormControlInput11"
                             placeholder="Password"
                             required
@@ -145,7 +150,7 @@ const SignUp = () => {
                           <input
                             value={phone}
                             type="number"
-                            className={`peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100  data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none  [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0`}
+                            className={`peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100  data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none  [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0`}
                             id="exampleFormControlInputphone"
                             placeholder="Phone"
                             onChange={(e) => setPhone(e.target.value)}
@@ -165,7 +170,7 @@ const SignUp = () => {
                           <input
                             value={bussiness}
                             type="text"
-                            className={`peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100  data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none  [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0`}
+                            className={`peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100  data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none  [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0`}
                             id="exampleFormControlInput1d"
                             placeholder="Username"
                             {...(role === 1 ? { required: true } : "")}
@@ -191,7 +196,7 @@ const SignUp = () => {
                             type="submit"
                             onClick={() => setRole(0)}
                           >
-                            SignUp
+                            {loading ? <Spinner /> : "SignUp"}
                           </button>
                         </div>
                         <p className="text-center mx-auto mb-2">OR</p>
@@ -201,7 +206,7 @@ const SignUp = () => {
                             type="submit"
                             onClick={() => setRole(1)}
                           >
-                            SignUp As Bussiness
+                            {loading ? <Spinner /> : " SignUp As Bussiness"}
                           </button>
 
                           <Link to="/terms">Terms and conditions</Link>
@@ -220,17 +225,18 @@ const SignUp = () => {
                     </div>
                   </div>
                   {/* Right column container with background and description*/}
-                  <div className="flex items-center rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none bg-gradient-to-r from-violet-500 to-fuchsia-900">
+                  <div className="flex items-center  rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none bg-gradient-to-r from-violet-500 to-fuchsia-900">
                     <div className="px-4 py-6 text-white md:mx-6 md:p-12">
-                      <h4 className="mb-6 text-xl font-semibold">
-                        We are more than just a company
+                      <h4 className="mb-6 text-xl text-center font-semibold">
+                        Elevate Your Style with Exclusive Sneakers and
+                        Streetwear
                       </h4>
                       <p className="text-sm">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua. Ut enim ad minim veniam, quis
-                        nostrud exercitation ullamco laboris nisi ut aliquip ex
-                        ea commodo consequat.
+                        SoleSphere is a global hub for sneaker enthusiasts.
+                        Explore our curated collection of exclusive sneakers,
+                        connect with like-minded enthusiasts, and stay ahead in
+                        the world of sneaker culture. Discover, connect, and
+                        elevate your passion for sneakers with us.
                       </p>
                     </div>
                   </div>

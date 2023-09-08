@@ -4,10 +4,12 @@ import { useParams } from "react-router";
 import { getProductById } from "../redux/actions/product";
 import { toast } from "react-hot-toast";
 import { cartItems } from "../redux/actions/cart";
+import Spinner from "../layout/Spinner";
 
 const ProductPage = ({ handleCartToggle }) => {
   const product = useSelector((state) => state.product.product);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [activeSize, setActiveSize] = useState();
   const { id } = useParams();
@@ -22,8 +24,13 @@ const ProductPage = ({ handleCartToggle }) => {
       toast.error("Please select an size");
       return;
     }
-    dispatch(cartItems({ activeSize, quantity, id }));
-    handleCartToggle();
+    setLoading(true);
+    dispatch(cartItems({ activeSize, quantity, id }))
+      .then(() => {
+        setLoading(false);
+        handleCartToggle();
+      })
+      .catch((error) => setLoading(false));
   };
   if (!product) return;
   return (
@@ -39,19 +46,30 @@ const ProductPage = ({ handleCartToggle }) => {
               />
             </div>
             <div className="flex -mx-2 mb-4">
-              <div className="w-1/2 px-2">
+              <div className="w-full px-2">
                 <button
                   onClick={addToCart}
-                  className="w-full bg-fuchsia-700 text-white py-2 px-4 rounded-full font-bold hover:bg-fuchsia-600"
+                  disabled={product.quantity <= 0}
+                  className={`w-full bg-fuchsia-700 text-white py-2 px-4 rounded-full font-bold hover:bg-fuchsia-600 ${
+                    product.quantity <= 0
+                      ? "bg-gray-300 text-gray-600 cursor-not-allowed hover:bg-gray-300"
+                      : ""
+                  }`}
                 >
-                  Add to Cart
+                  {loading ? (
+                    <Spinner />
+                  ) : product.quantity <= 0 ? (
+                    "Out of Stock"
+                  ) : (
+                    "Add to Cart"
+                  )}
                 </button>
               </div>
-              <div className="w-1/2 px-2">
+              {/* <div className="w-1/2 px-2">
                 <button className="w-full bg-fuchsia-300 text-fuchsia-800 py-2 px-4 rounded-full font-bold hover:bg-fuchsia-200">
                   Buy Now
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="md:flex-1 px-4">
@@ -86,7 +104,7 @@ const ProductPage = ({ handleCartToggle }) => {
             {product?.sizes && (
               <div className="mb-4">
                 <span className="font-bold text-fuchsia-700">Select Size:</span>
-                <div className="flex items-center mt-2">
+                <div className="flex flex-wrap items-center mt-2">
                   {product.sizes.map((size, index) => (
                     <button
                       key={index}
