@@ -75,7 +75,7 @@ const SideCart = ({ toggleCart, handleCartToggle }) => {
           <div className="here pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
             <div className="pointer-events-auto w-screen max-w-md">
               <div className="z-[9999] this flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
-                {cartItems && cartItems.lenght > 0 ? (
+                {cartItems && cartItems.length > 0 ? (
                   <>
                     <div className=" flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                       <div className="flex items-start justify-between">
