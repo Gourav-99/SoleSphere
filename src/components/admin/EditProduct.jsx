@@ -19,12 +19,10 @@ const EditProduct = () => {
   const [description, setDescription] = useState(
     product ? product.description || "" : ""
   );
-  const [quantity, setQuantity] = useState(
-    product ? product.quantity || "" : ""
-  );
+  const [quantity, setQuantity] = useState(product ? product.quantity || 0 : 0);
   const [tags, setTags] = useState(product ? product.tags || "" : "");
   const [sizes, setSizes] = useState(product ? product.sizes || "" : "");
-  const [price, setPrice] = useState(product ? product.price / 100 || "" : "");
+  const [price, setPrice] = useState(product ? product.price / 100 || 0 : 0);
   const [imagePreview] = useState(product ? product.image || "" : "");
   useEffect(() => {
     dispatch(getProductById(id));

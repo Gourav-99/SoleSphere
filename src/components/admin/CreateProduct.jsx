@@ -10,10 +10,10 @@ const CreateProduct = () => {
   const [title, setTitle] = useState("");
   const [subTitle, setSubTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState(0);
   const [tags, setTags] = useState("");
   const [sizes, setSizes] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(0);
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
