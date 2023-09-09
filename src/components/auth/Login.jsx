@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { loginUser } from "../../redux/actions/auth";
 import withAuth from "../../hoc/withAuth";
 import Spinner from "../../layout/Spinner";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,10 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     setLoading(true);
+    if (password.length < 6) {
+      toast.error("Password should contain minimum 6 characters");
+      return;
+    }
     dispatch(loginUser({ email, password }))
       .then(() => {
         setLoading(false);

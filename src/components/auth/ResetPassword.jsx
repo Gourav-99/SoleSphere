@@ -14,8 +14,8 @@ const ResetPassword = () => {
     try {
       e.preventDefault();
       setLoading(true);
-      if (password !== confirmPass) {
-        toast.error("Password doesn't match");
+      if (password !== confirmPass && password.length < 6) {
+        toast.error("Password doesn't match or have min. 6 letter");
         return;
       }
       const res = await axios.post(`/auth/reset-password/${token}`, {

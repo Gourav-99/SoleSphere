@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signUpUser } from "../../redux/actions/auth";
 import Spinner from "../../layout/Spinner";
+import { toast } from "react-hot-toast";
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,10 @@ const SignUp = () => {
   const handleSignup = (e) => {
     e.preventDefault();
     setLoading(true);
+    if (password.length < 6) {
+      toast.error("Password should contain minimum 6 characters");
+      return;
+    }
     formData.append("fName", fName);
     formData.append("lName", lName);
     formData.append("email", email);
