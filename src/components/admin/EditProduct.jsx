@@ -5,6 +5,7 @@ import { getProductById } from "../../redux/actions/product";
 import axios from "../../utilis/axios/index";
 import { toast } from "react-hot-toast";
 import restrictedRoute from "../../hoc/restrictRoute";
+import Spinner from "../../layout/Spinner";
 
 const EditProduct = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const EditProduct = () => {
   const product = useSelector((state) => state.product.product);
 
   const { id } = useParams();
+  const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState(product ? product.title || "" : "");
   const [subTitle, setSubTitle] = useState(
     product ? product.subTitle || "" : ""
@@ -30,6 +32,7 @@ const EditProduct = () => {
   const handleEditProduct = async (e) => {
     try {
       e.preventDefault();
+      setLoading(true);
       const res = await axios.put(`/product/edit-product/${id}`, {
         title,
         subTitle,
@@ -45,7 +48,10 @@ const EditProduct = () => {
         toast.success("Product Updated successfully");
       }
     } catch (error) {
+      setLoading(false);
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -229,7 +235,7 @@ const EditProduct = () => {
                           className="w-full bg-gradient-to-r from-violet-500 to-fuchsia-900 text-white py-2 px-4 rounded hover:opacity-90"
                           type="submit"
                         >
-                          Save Changes
+                          {loading ? <Spinner /> : "Save Changes"}
                         </button>
                       </div>
                     </form>

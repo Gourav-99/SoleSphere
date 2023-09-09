@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 import axios from "../../utilis/axios/index";
 import { toast } from "react-hot-toast";
 import restrictedRoute from "../../hoc/restrictRoute";
+import Spinner from "../../layout/Spinner";
 
 const CreateProduct = () => {
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [subTitle, setSubTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -29,6 +30,7 @@ const CreateProduct = () => {
   const handleCreateProduct = async (e) => {
     try {
       e.preventDefault();
+      setLoading(true);
       const formData = new FormData();
       formData.append("title", title);
       formData.append("subTitle", subTitle);
@@ -45,7 +47,10 @@ const CreateProduct = () => {
         toast.success("Product Created Successfully");
       }
     } catch (error) {
+      setLoading(false);
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -247,7 +252,7 @@ const CreateProduct = () => {
                           className="w-full bg-gradient-to-r from-violet-500 to-fuchsia-900 text-white py-2 px-4 rounded hover:opacity-90"
                           type="submit"
                         >
-                          Add Product
+                          {loading ? <Spinner /> : "Add Product"}
                         </button>
                       </div>
                     </form>
