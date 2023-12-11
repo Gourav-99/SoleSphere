@@ -21,3 +21,11 @@ export const cartItems = (payload) => async (dispatch) => {
     toast.error(error.response.data.message);
   }
 };
+export const removeCartItem = (payload) => (dispatch) => {
+  try {
+    dispatch({ type: "REMOVE_CART_ITEM", payload });
+  } catch (error) {
+    console.log(error);
+    toast.error(error.response.data.message);
+  }
+};

@@ -1,11 +1,13 @@
 import { useState } from "react";
 import axios from "../../src/utilis/axios/index";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import Spinner from "../layout/Spinner";
+import { removeCartItem } from "../redux/actions/cart";
 
 const SideCart = ({ toggleCart, handleCartToggle }) => {
+  const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth.user);
   const cartItems = useSelector((state) => state.cart.cartItems);
   const [loading, setLoading] = useState(false);
@@ -19,6 +21,9 @@ const SideCart = ({ toggleCart, handleCartToggle }) => {
     return result;
   }, {});
 
+  const handleRemoveItem = (productId) => {
+    dispatch(removeCartItem(productId));
+  };
   const handleCheckout = async (amount) => {
     try {
       if (!auth) {
@@ -157,6 +162,9 @@ const SideCart = ({ toggleCart, handleCartToggle }) => {
                                         <button
                                           type="button"
                                           className="font-medium text-fuchsia-600 hover:text-fuchsia-500"
+                                          onClick={() =>
+                                            handleRemoveItem(item.product._id)
+                                          }
                                         >
                                           Remove
                                         </button>
