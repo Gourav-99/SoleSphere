@@ -1,8 +1,10 @@
 import axios from "../../src/utilis/axios/index";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { removeCartItem } from "../redux/actions/cart";
 
 const SideCart = ({ toggleCart, handleCartToggle }) => {
+  const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth.user);
   const cartItems = useSelector((state) => state.cart.cartItems);
   const subTotal = cartItems.reduce((total, item) => {
@@ -14,7 +16,9 @@ const SideCart = ({ toggleCart, handleCartToggle }) => {
     result[_id] = { selectedQuantity, activeSize };
     return result;
   }, {});
-
+  const handleRemoveItem = (productId) => {
+    dispatch(removeCartItem(productId));
+  };
   const handleCheckout = async (amount) => {
     try {
       const { data: order } = await axios.post("/payments/checkout", {
@@ -142,6 +146,9 @@ const SideCart = ({ toggleCart, handleCartToggle }) => {
                                     <button
                                       type="button"
                                       className="font-medium text-fuchsia-600 hover:text-fuchsia-500"
+                                      onClick={() =>
+                                        handleRemoveItem(item.product._id)
+                                      }
                                     >
                                       Remove
                                     </button>

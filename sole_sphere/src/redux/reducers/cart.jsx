@@ -34,7 +34,15 @@ const cartReducer = (state = initialState, action) => {
           loaded: true,
         };
       }
-
+    case "REMOVE_CART_ITEM":
+      const remainingProducts = state.cartItems.filter(
+        (item) => item.product._id !== payload
+      );
+      return {
+        ...state,
+        cartItems: remainingProducts,
+        loaded: true,
+      };
     default:
       return state;
   }
