@@ -1,12 +1,14 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Slider from "../utilis/Slider";
-import ProductCard from "../utilis/ProductCard";
-import Gallery from "./Gallery";
+// import ProductCard from "../utilis/ProductCard";
+// import Gallery from "./Gallery";
 import { useEffect } from "react";
 import { getProducts } from "../redux/actions/product";
-import BannerImg from "./BannerImg";
-
+// import BannerImg from "./BannerImg";
+const LazyProductCard = React.lazy(() => import("../utilis/ProductCard"));
+const LazyBanner = React.lazy(() => import("./BannerImg"));
+const LazyGallery = React.lazy(() => import("./Gallery"));
 const Home = () => {
   const products = useSelector((state) => state.product.products);
   const dispatch = useDispatch();
@@ -60,7 +62,9 @@ const Home = () => {
   return (
     <>
       <section className="banner mb-10">
-        <BannerImg />
+        <React.Suspense fallback="Loading...">
+          <LazyBanner />
+        </React.Suspense>
       </section>
       {trendingProducts.length > 0 && (
         <section className="trending-products flex flex-col mb-10">
@@ -75,7 +79,9 @@ const Home = () => {
               />
             ) : (
               trendingProducts.map((product, index) => (
-                <ProductCard key={index} product={product} />
+                <React.Suspense fallback="Loading...">
+                  <LazyProductCard key={index} product={product} />
+                </React.Suspense>
               ))
             )}
           </div>
@@ -95,7 +101,9 @@ const Home = () => {
               />
             ) : (
               featuredProducts.map((product, index) => (
-                <ProductCard key={index} product={product} />
+                <React.Suspense fallback="Loading...">
+                  <LazyProductCard key={index} product={product} />
+                </React.Suspense>
               ))
             )}
           </div>
@@ -114,7 +122,9 @@ const Home = () => {
               />
             ) : (
               newProducts.map((product, index) => (
-                <ProductCard key={index} product={product} />
+                <React.Suspense fallback="Loading...">
+                  <LazyProductCard key={index} product={product} />
+                </React.Suspense>
               ))
             )}
           </div>
@@ -124,7 +134,9 @@ const Home = () => {
         <h2 className="diverse-title text-center text-3xl text-bold text-fuchsia-900 mb-10">
           Diverse Assortment
         </h2>
-        <Gallery products={otherProducts} />
+        <React.Suspense fallback="Loading...">
+          <LazyGallery products={otherProducts} />
+        </React.Suspense>
       </section>
     </>
   );
