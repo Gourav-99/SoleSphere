@@ -130,14 +130,16 @@ const Home = () => {
           </div>
         </section>
       )}
-      <section className="diverse-assortment mb-10">
-        <h2 className="diverse-title text-center text-3xl text-bold text-fuchsia-900 mb-10">
-          Diverse Assortment
-        </h2>
-        <React.Suspense fallback="Loading...">
-          <LazyGallery products={otherProducts} />
-        </React.Suspense>
-      </section>
+      {otherProducts.length > 0 && (
+        <section className="diverse-assortment mb-10">
+          <h2 className="diverse-title text-center text-3xl text-bold text-fuchsia-900 mb-10">
+            Diverse Assortment
+          </h2>
+          <React.Suspense fallback="Loading...">
+            <LazyGallery products={otherProducts} />
+          </React.Suspense>
+        </section>
+      )}
     </>
   );
 };
