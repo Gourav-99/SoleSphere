@@ -1,6 +1,6 @@
+import React from "react";
 import { Route, Routes } from "react-router";
-
-import Home from "./components/Home";
+// import Home from "./components/Home";
 import ProductDetails from "./components/ProductPage";
 import Footer from "./layout/Footer";
 import Navbar from "./layout/Navbar";
@@ -20,6 +20,7 @@ import ManageProduct from "./components/admin/ManageProduct";
 import EditProduct from "./components/admin/EditProduct";
 import CreateProduct from "./components/admin/CreateProduct";
 import NotFound from "./layout/NotFound";
+const LazyHome = React.lazy(() => import("./components/Home"));
 
 function App() {
   const dispatch = useDispatch();
@@ -53,7 +54,14 @@ function App() {
       />
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <React.Suspense fallback="loading...">
+              <LazyHome />
+            </React.Suspense>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route
           path="/signup"
