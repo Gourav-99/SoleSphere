@@ -47,7 +47,7 @@ const SideCart = ({ toggleCart, handleCartToggle }) => {
         image:
           "https://sole-sphere-products-storage.s3.ap-south-1.amazonaws.com/Mediamodifier-Design-Template.png",
         order_id: order.id,
-        callback_url: `http://localhost:8080/payments/paymentverification`,
+        callback_url: `https://sole-sphere-api.onrender.com/payments/paymentverification`,
         prefill: {
           name: `${auth.user?.fullName}`,
           email: `${auth.user?.email}`,
