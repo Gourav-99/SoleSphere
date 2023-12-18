@@ -127,6 +127,7 @@ const SideCart = ({ toggleCart, handleCartToggle }) => {
                                 <li key={index} className="flex py-6">
                                   <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-fuchsia-200">
                                     <img
+                                      loading="lazy"
                                       src={item.product.image}
                                       alt={item.product.title}
                                       className="h-full w-full object-cover object-center"

@@ -66,6 +66,7 @@ const EditProduct = () => {
                   <div className="md:mx-6 md:p-12">
                     {/* Logo */}
                     <img
+                      loading="lazy"
                       className="w-full mx-auto h-14 md:w-[250px] md:h-[60px] object-contain"
                       src="https://sole-sphere-products-storage.s3.ap-south-1.amazonaws.com/photo_6321111697368136156_y.jpg"
                       alt=""
@@ -249,6 +250,7 @@ const EditProduct = () => {
                         <div className="flex items-center justify-center h-full">
                           <img
                             src={imagePreview}
+                            loading="lazy"
                             alt="Product Preview"
                             className="max-h-full max-w-full"
                           />

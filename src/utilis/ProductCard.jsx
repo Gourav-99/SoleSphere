@@ -6,6 +6,7 @@ const ProductCard = ({ product }) => {
       <Link to={`/product/${product._id}`}>
         <div className="flex items-center justify-center md:min-h-[350px]">
           <img
+            loading="lazy"
             className="rounded-t-lg object-scale-down w-full md:h-full "
             src={product.image}
             alt={product.title}

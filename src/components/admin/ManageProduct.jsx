@@ -81,6 +81,7 @@ const ManageProduct = () => {
               >
                 <td className="min-w-40 border-b-2  px-6 py-4">
                   <img
+                    loading="lazy"
                     className="w-16 h-16 object-cover rounded-md"
                     src={product.image}
                     alt={`Product: ${product.title}`}

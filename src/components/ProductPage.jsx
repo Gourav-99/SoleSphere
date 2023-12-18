@@ -41,6 +41,7 @@ const ProductPage = ({ handleCartToggle }) => {
             <div className="  rounded-lg bg-fuchsia-300 mb-4">
               <img
                 className="w-full h-full object-contain"
+                loading="lazy"
                 src={product?.image}
                 alt="Product Image"
               />

@@ -15,6 +15,7 @@ const Gallery = ({ products }) => {
                 <div className="aspect-h-1 aspect-w-1 w-full bg-white  md:min-h-[350px] overflow-hidden group-hover:opacity-75">
                   <img
                     src={product.image}
+                    loading="lazy"
                     alt="Front of men's Basic Tee in black."
                     className="h-full w-full object-contain object-center"
                   />

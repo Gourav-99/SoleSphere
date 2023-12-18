@@ -66,6 +66,7 @@ const CreateProduct = () => {
                     {/* Logo */}
                     <img
                       className="w-full mx-auto h-14 md:w-[250px] md:h-[60px] object-contain"
+                      loading="lazy"
                       src="https://sole-sphere-products-storage.s3.ap-south-1.amazonaws.com/photo_6321111697368136156_y.jpg"
                       alt=""
                     />
@@ -265,6 +266,7 @@ const CreateProduct = () => {
                       {imagePreview ? (
                         <div className="flex items-center justify-center h-full">
                           <img
+                            loading="lazy"
                             src={imagePreview}
                             alt="Product Preview"
                             className="max-h-full max-w-full"

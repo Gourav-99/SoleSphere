@@ -189,7 +189,7 @@ const Navbar = ({ isMobileMenuOpen, toggleHamburger, handleCartToggle }) => {
                 </form>
               </div>
             </div>
-            {auth.token && auth.loaded ? (
+            {auth.token && auth.loaded && auth.user ? (
               // {/* Cart Icon */}
               <>
                 <button
@@ -220,14 +220,15 @@ const Navbar = ({ isMobileMenuOpen, toggleHamburger, handleCartToggle }) => {
                     {auth.user && auth.user.profilePicture ? (
                       <img
                         src={auth.user.profilePicture}
+                        loading="lazy"
                         className="rounded-full h-10 w-10"
                         alt=""
-                        loading="lazy"
                       />
                     ) : (
                       <div className="  rounded-full h-10 w-10 flex items-center justify-center">
                         <span className="text-fuchsia-800 uppercase font-bold">
                           {auth?.user?.initials}
+                          {console.log(auth?.user?.initials)}
                         </span>
                       </div>
                     )}

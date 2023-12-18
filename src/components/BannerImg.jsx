@@ -16,6 +16,7 @@ const BannerImg = () => {
   const desktopSlides = deskImages.map((image, index) => (
     <img
       className="w-full h-[3/4] object-contain"
+      loading="lazy"
       src={image}
       alt={`banner-image-${index}`}
       key={`banner-image-${index}`}
@@ -24,6 +25,7 @@ const BannerImg = () => {
   const mobileSlides = mobImages.map((image, index) => (
     <img
       className="w-full obhect-contain "
+      loading="lazy"
       src={image}
       alt={`banner-image-${index}`}
       key={`banner-image-${index}`}
