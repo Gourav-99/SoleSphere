@@ -11,6 +11,14 @@ const SearchPage = () => {
   useEffect(() => {
     dispatch(getProducts(searchParam.get("_search")));
   }, [searchParam]);
-  return <Gallery products={products} />;
+  return (
+    <>
+      {products && products.length > 0 ? (
+        <Gallery products={products} />
+      ) : (
+        <p className="text-fuchsia-500 text-center py-3">No item Found</p>
+      )}
+    </>
+  );
 };
 export default SearchPage;

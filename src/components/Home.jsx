@@ -58,7 +58,7 @@ const Home = () => {
       },
     },
   };
-
+  if (products.length <= 0) return 0;
   return (
     <>
       <section className="banner mb-10">
