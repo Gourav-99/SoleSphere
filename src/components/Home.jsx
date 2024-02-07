@@ -58,7 +58,7 @@ const Home = () => {
       },
     },
   };
-  if (products.length <= 0) return 0;
+
   return (
     <>
       <section className="banner mb-10">
@@ -66,7 +66,7 @@ const Home = () => {
           <LazyBanner />
         </React.Suspense>
       </section>
-      {trendingProducts.length > 0 && (
+      {trendingProducts && trendingProducts.length > 0 && (
         <section className="trending-products flex flex-col mb-10">
           <h2 className="trending-product-title text-center text-3xl text-bold text-fuchsia-900 mb-10">
             Trending Products
@@ -88,7 +88,7 @@ const Home = () => {
         </section>
       )}
 
-      {featuredProducts.length > 0 && (
+      {featuredProducts && featuredProducts.length > 0 && (
         <section className="featured-products mb-10">
           <h2 className="featured-product-title text-center text-3xl text-bold text-fuchsia-900 mb-10">
             Featured Products
@@ -109,7 +109,7 @@ const Home = () => {
           </div>
         </section>
       )}
-      {newProducts.length > 0 && (
+      {newProducts && newProducts.length > 0 && (
         <section className="new-arrivals mb-10">
           <h2 className="new-arrival-title text-center text-3xl text-bold text-fuchsia-900 mb-10">
             New Arrival
@@ -130,7 +130,7 @@ const Home = () => {
           </div>
         </section>
       )}
-      {otherProducts.length > 0 && (
+      {otherProducts && otherProducts.length > 0 && (
         <section className="diverse-assortment mb-10">
           <h2 className="diverse-title text-center text-3xl text-bold text-fuchsia-900 mb-10">
             Diverse Assortment
